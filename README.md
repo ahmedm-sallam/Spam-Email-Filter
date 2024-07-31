@@ -1,5 +1,5 @@
 # Spam Email Filter
- 
+
 ## Overview
 This project focuses on building and comparing several machine-learning models to classify emails as spam or not spam. Utilizing a variety of text processing techniques and classification algorithms, this repository contains all the code and models needed to train, evaluate, and deploy these classifiers.
 
@@ -23,15 +23,15 @@ We utilize Count Vectorizer and TF-IDF Vectorizer for feature extraction from th
 
 ### Neural Network-Based Embeddings
 
-For neural network-based embeddings, we employ Word2Vec, Doc2Vec, and BERT models.
+I employ Word2Vec, Doc2Vec, and BERT models for neural network-based embeddings.
 
 - **Word2Vec**: Creates word embeddings using the skip-gram model.
 - **Doc2Vec**: Generates document embeddings.
-- **BERT**: Uses pre-trained BERT model to obtain contextual embeddings for the text.
+- **BERT**: Uses pre-trained BERT model to obtain contextual embeddings for the text. BERT embeddings are computed using GPU acceleration for improved performance.
 
 ## Training and Evaluation
 
-We train Logistic Regression and Random Forest classifiers on the extracted features. The models are evaluated based on accuracy, precision, recall, and F1 score. Each model is saved for future use.
+We train Logistic Regression and Random Forest classifiers on the extracted features. The models are evaluated based on accuracy, precision, recall, and F1 score. Pre-trained models are loaded from the disk if available; otherwise, training is performed and the models are saved for future use. Each model is saved for future use.
 
 ## Model Evaluation Results
 
@@ -59,3 +59,25 @@ The table below summarizes the performance metrics of the different models train
 - **BERT Models**: Excellent accuracy and precision, with logistic regression outperforming random forest in recall and F1 score.
 
 These results provide valuable insights into the effectiveness of various feature extraction techniques and machine learning models for spam email detection.
+
+## Usage
+
+To run the project:
+
+1. **Install Dependencies**:
+   Please make sure you have the required packages installed. You can use the provided `requirements.txt`:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. **Run the Main Script**:
+   To execute the main script, which will check for pre-trained models and train new ones if needed, run:
+   ```bash
+   python main.py
+   ```
+
+3. **GPU Acceleration**:
+   Please make sure your environment is set up to use GPU for BERT embeddings. You need to have CUDA and compatible versions of PyTorch installed.
+
+4. **Check Saved Models**:
+   Pre-trained models are saved in the `saved_models` directory. If the models are not available, they will be trained and saved automatically.
