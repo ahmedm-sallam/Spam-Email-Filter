@@ -1,40 +1,29 @@
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-import pickle
+import joblib
 import os
 
 
 def train_model(classifier, X_train, y_train):
     model = classifier()
     model.fit(X_train, y_train)
-    print(f"Model trained: {model}")
     return model
 
 
 def evaluate_model(model, X_test, y_test):
     y_pred = model.predict(X_test)
-    accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred, zero_division=1)
-    recall = recall_score(y_test, y_pred, zero_division=1)
-    f1 = f1_score(y_test, y_pred, zero_division=1)
     return {
-        "Accuracy": accuracy,
-        "Precision": precision,
-        "Recall": recall,
-        "F1 Score": f1
+        "Accuracy": accuracy_score(y_test, y_pred),
+        "Precision": precision_score(y_test, y_pred, zero_division=1),
+        "Recall": recall_score(y_test, y_pred, zero_division=1),
+        "F1 Score": f1_score(y_test, y_pred, zero_division=1),
     }
-    print(f"Model evaluated: {model}")
 
 
-def save_model(model, filename):
-    if not os.path.exists('saved_models'):
-        os.makedirs('saved_models')
-
-    path = os.path.join('saved_models', filename)
-
-    with open(path, 'wb') as file:
-        pickle.dump(model, file)
+def save_model(model, path):
+    os.makedirs('saved_models', exist_ok=True)
+    joblib.dump(model, path)
     print(f"Model saved as {path}")
 
 
